@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,9 +14,7 @@ import java.util.Objects;
 @Setter
 @Embeddable
 public class UserWorkspaceId implements Serializable {
-    @Serial
     private static final long serialVersionUID = 3140867044683306239L;
-
     @NotNull
     @Column(name = "user_id", nullable = false)
     private Long userId;

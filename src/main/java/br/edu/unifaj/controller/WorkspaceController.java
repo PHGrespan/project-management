@@ -23,9 +23,9 @@ public class WorkspaceController {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Workspace> insertWorkspace(@Valid @RequestBody WorkspaceDto dto) {
-        return new ResponseEntity<>(service.save(dto), HttpStatus.CREATED);
+    @PostMapping("/{userId}")
+    public ResponseEntity<Workspace> insertWorkspace(@PathVariable(value = "userId") Long userId, @Valid @RequestBody WorkspaceDto dto) throws Exception {
+        return new ResponseEntity<>(service.save(userId, dto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
