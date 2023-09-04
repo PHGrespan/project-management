@@ -1,6 +1,7 @@
 package br.edu.unifaj.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,7 @@ public class UserWorkspace {
     @JoinColumn(name = "workspace_id", nullable = false)
     private Workspace workspace;
 
+    @NotNull
     @Column(name = "owner", nullable = false)
     private Boolean owner = false;
 

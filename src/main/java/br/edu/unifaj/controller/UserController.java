@@ -28,8 +28,8 @@ public class UserController {
         return new ResponseEntity<>(service.save(dto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{email}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "email") String email, @Valid @RequestBody UserDto dto) throws Exception {
-        return new ResponseEntity<>(service.update(email, dto), HttpStatus.CREATED);
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id, @Valid @RequestBody UserDto dto) throws Exception {
+        return new ResponseEntity<>(service.update(id, dto), HttpStatus.OK);
     }
 }

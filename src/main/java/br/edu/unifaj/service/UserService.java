@@ -7,7 +7,7 @@ import br.edu.unifaj.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,13 +23,13 @@ public class UserService {
     public User save(UserDto dto) {
         User newUser = UserMapper.INSTANCE.UserDtoToUser(dto);
 
-        newUser.setCreationDate(Instant.now());
+        newUser.setCreationDate(LocalDateTime.now());
 
         return repository.save(newUser);
     }
 
-    public User update(String email, UserDto dto) throws Exception {
-        User oldUser = repository.findByEmail(email).orElseThrow(() -> new Exception("User not found"));
+    public User update(Long id, UserDto dto) throws Exception {
+        User oldUser = repository.findById(id).orElseThrow(() -> new Exception("User not found"));
 
         User newUser = UserMapper.INSTANCE.UserDtoToUser(dto);
         newUser.setId(oldUser.getId());

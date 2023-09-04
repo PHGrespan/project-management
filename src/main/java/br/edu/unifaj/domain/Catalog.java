@@ -1,6 +1,8 @@
 package br.edu.unifaj.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +16,8 @@ public class Catalog {
     @Column(name = "catalog_id", nullable = false)
     private Long id;
 
+    @Size(max = 255)
+    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -21,6 +25,7 @@ public class Catalog {
     @JoinColumn(name = "project_id")
     private Project project;
 
+    @NotNull
     @Column(name = "project_position", nullable = false)
     private Integer projectPosition;
 

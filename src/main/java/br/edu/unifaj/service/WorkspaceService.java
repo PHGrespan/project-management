@@ -7,7 +7,7 @@ import br.edu.unifaj.repository.WorkspaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,8 +23,19 @@ public class WorkspaceService {
     public Workspace save(WorkspaceDto dto) {
         Workspace newWorkspace= WorkspaceMapper.INSTANCE.WorkspaceDtoToWorkspace(dto);
 
-        newWorkspace.setCreationDate(Instant.now());
-        newWorkspace.setUpdateDate(Instant.now());
+        newWorkspace.setCreationDate(LocalDateTime.now());
+        newWorkspace.setUpdateDate(LocalDateTime.now());
+
+        return repository.save(newWorkspace);
+    }
+
+    public Workspace update(Long id, WorkspaceDto dto) throws Exception {
+        Workspace oldWorkspace = repository.findById(id).orElseThrow(() -> new Exception("Workspace not found"));
+
+        Workspace newWorkspace = WorkspaceMapper.INSTANCE.WorkspaceDtoToWorkspace(dto);
+        newWorkspace.setId(oldWorkspace.getId());
+        newWorkspace.setCreationDate(oldWorkspace.getCreationDate());
+        newWorkspace.setUpdateDate(LocalDateTime.now());
 
         return repository.save(newWorkspace);
     }
