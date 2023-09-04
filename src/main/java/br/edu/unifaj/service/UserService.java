@@ -14,7 +14,7 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    private UserRepository repository;
+    UserRepository repository;
 
     public List<User> findAll() {
         return repository.findAll();

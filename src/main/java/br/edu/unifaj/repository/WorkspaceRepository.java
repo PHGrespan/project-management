@@ -1,9 +1,9 @@
 package br.edu.unifaj.repository;
 
-import br.edu.unifaj.domain.User;
+import br.edu.unifaj.domain.Workspace;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface WorkspaceRepository extends JpaRepository<Workspace, Long> {
 }
