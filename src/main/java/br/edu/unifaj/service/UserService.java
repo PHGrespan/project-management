@@ -27,4 +27,14 @@ public class UserService {
 
         return repository.save(newUser);
     }
+
+    public User update(String email, UserDto dto) throws Exception {
+        User oldUser = repository.findByEmail(email).orElseThrow(() -> new Exception("User not found"));
+
+        User newUser = UserMapper.INSTANCE.UserDtoToUser(dto);
+        newUser.setId(oldUser.getId());
+        newUser.setCreationDate(oldUser.getCreationDate());
+
+        return repository.save(newUser);
+    }
 }

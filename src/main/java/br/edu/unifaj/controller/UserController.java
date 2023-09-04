@@ -27,4 +27,9 @@ public class UserController {
     public ResponseEntity<User> insertUser(@Valid @RequestBody UserDto dto) {
         return new ResponseEntity<>(service.save(dto), HttpStatus.CREATED);
     }
+
+    @PutMapping("/{email}")
+    public ResponseEntity<User> updateUser(@PathVariable(value = "email") String email, @Valid @RequestBody UserDto dto) throws Exception {
+        return new ResponseEntity<>(service.update(email, dto), HttpStatus.CREATED);
+    }
 }
