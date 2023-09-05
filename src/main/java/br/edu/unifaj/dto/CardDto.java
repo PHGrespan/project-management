@@ -26,5 +26,5 @@ public class CardDto implements Serializable {
     Long idCatalog;
 
     @NotNull
-    Integer listPosition;
+    Integer catalogPosition;
 }

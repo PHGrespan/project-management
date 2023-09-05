@@ -1,5 +1,6 @@
 package br.edu.unifaj.mapper;
 
+
 import br.edu.unifaj.dto.CardDto;
 import br.edu.unifaj.entity.Card;
 import org.mapstruct.Mapper;

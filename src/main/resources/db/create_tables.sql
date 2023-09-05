@@ -4,10 +4,10 @@ USE project_management;
 
 CREATE TABLE user
 (
-    user_id      SERIAL,
-    name         VARCHAR(255) NOT NULL,
-    email        VARCHAR(255) NOT NULL UNIQUE,
-    pass         VARCHAR(255) NOT NULL,
+    user_id       SERIAL,
+    name          VARCHAR(255) NOT NULL,
+    email         VARCHAR(255) NOT NULL UNIQUE,
+    pass          VARCHAR(255) NOT NULL,
 
     creation_date DATETIME     NOT NULL,
 
@@ -16,9 +16,9 @@ CREATE TABLE user
 
 CREATE TABLE workspace
 (
-    workspace_id SERIAL,
-    name         VARCHAR(255) NOT NULL,
-    description  VARCHAR(255) NOT NULL,
+    workspace_id  SERIAL,
+    name          VARCHAR(255) NOT NULL,
+    description   VARCHAR(255) NOT NULL,
 
     creation_date DATETIME     NOT NULL,
     update_date   DATETIME     NOT NULL,
@@ -53,12 +53,12 @@ CREATE TABLE catalog
 
 CREATE TABLE card
 (
-    card_id       SERIAL,
-    name          VARCHAR(255) NOT NULL,
-    description   VARCHAR(255) NOT NULL,
+    card_id          SERIAL,
+    name             VARCHAR(255) NOT NULL,
+    description      VARCHAR(255) NOT NULL,
 
-    catalog_id    BIGINT UNSIGNED,
-    list_position INT          NOT NULL,
+    catalog_id       BIGINT UNSIGNED,
+    catalog_position INT          NOT NULL,
 
     PRIMARY KEY (card_id),
     FOREIGN KEY (catalog_id) REFERENCES catalog (catalog_id)

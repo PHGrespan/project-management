@@ -42,7 +42,7 @@ public class Card {
 
     @JsonView(View.Card.class)
     @NotNull
-    @Column(name = "list_position", nullable = false)
-    private Integer listPosition;
+    @Column(name = "catalog_position", nullable = false)
+    private Integer catalogPosition;
 
 }
