@@ -1,35 +1,40 @@
 package br.edu.unifaj.controller;
 
-import br.edu.unifaj.domain.Workspace;
-import br.edu.unifaj.dto.model.WorkspaceDto;
+import br.edu.unifaj.dto.WorkspaceDto;
+import br.edu.unifaj.entity.User;
+import br.edu.unifaj.entity.Workspace;
 import br.edu.unifaj.service.WorkspaceService;
+import br.edu.unifaj.view.View;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/workspaces")
 public class WorkspaceController {
 
     @Autowired
-    WorkspaceService service;
+    WorkspaceService workspaceService;
 
-    @GetMapping
-    public ResponseEntity<List<Workspace>> getAllWorkspaces() {
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+
+    @JsonView(View.Workspace.class)
+    @GetMapping("/users/{userId}/workspaces")
+    public ResponseEntity<User> getAllWorkspacesByUserId(@PathVariable(value = "userId") Long userId) throws Exception {
+        return new ResponseEntity<>(workspaceService.findAllWorkspacesByUserId(userId), HttpStatus.OK);
     }
 
-    @PostMapping("/{userId}")
-    public ResponseEntity<Workspace> insertWorkspace(@PathVariable(value = "userId") Long userId, @Valid @RequestBody WorkspaceDto dto) throws Exception {
-        return new ResponseEntity<>(service.save(userId, dto), HttpStatus.CREATED);
+    @JsonView(View.Workspace.class)
+    @PostMapping("/users/{userId}/workspaces")
+    public ResponseEntity<Workspace> insertWorkspaceByUserId(@PathVariable(value = "userId") Long userId, @Valid @RequestBody WorkspaceDto dto) throws Exception {
+        return new ResponseEntity<>(workspaceService.save(userId, dto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @JsonView(View.Workspace.class)
+    @PutMapping("/workspaces/{id}")
     public ResponseEntity<Workspace> updateWorkspace(@PathVariable(value = "id") Long id, @Valid @RequestBody WorkspaceDto dto) throws Exception {
-        return new ResponseEntity<>(service.update(id, dto), HttpStatus.OK);
+        return new ResponseEntity<>(workspaceService.update(id, dto), HttpStatus.OK);
     }
+
 }

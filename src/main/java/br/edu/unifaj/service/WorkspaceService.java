@@ -1,10 +1,10 @@
 package br.edu.unifaj.service;
 
-import br.edu.unifaj.domain.User;
-import br.edu.unifaj.domain.UserWorkspace;
-import br.edu.unifaj.domain.UserWorkspaceId;
-import br.edu.unifaj.domain.Workspace;
-import br.edu.unifaj.dto.model.WorkspaceDto;
+import br.edu.unifaj.dto.WorkspaceDto;
+import br.edu.unifaj.entity.User;
+import br.edu.unifaj.entity.UserWorkspace;
+import br.edu.unifaj.entity.UserWorkspaceId;
+import br.edu.unifaj.entity.Workspace;
 import br.edu.unifaj.mapper.WorkspaceMapper;
 import br.edu.unifaj.repository.UserRepository;
 import br.edu.unifaj.repository.UserWorkspaceRepository;
@@ -14,13 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class WorkspaceService {
 
     @Autowired
-    WorkspaceRepository repository;
+    WorkspaceRepository workspaceRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -28,8 +27,8 @@ public class WorkspaceService {
     @Autowired
     UserWorkspaceRepository userWorkspaceRepository;
 
-    public List<Workspace> findAll() {
-        return repository.findAll();
+    public User findAllWorkspacesByUserId(Long userId) throws Exception {
+        return userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
     }
 
     @Transactional
@@ -41,7 +40,7 @@ public class WorkspaceService {
         newWorkspace.setCreationDate(LocalDateTime.now());
         newWorkspace.setUpdateDate(LocalDateTime.now());
 
-        newWorkspace = repository.save(newWorkspace);
+        newWorkspace = workspaceRepository.save(newWorkspace);
 
 
         UserWorkspaceId userWorkspaceId = new UserWorkspaceId();
@@ -59,13 +58,13 @@ public class WorkspaceService {
     }
 
     public Workspace update(Long id, WorkspaceDto dto) throws Exception {
-        Workspace oldWorkspace = repository.findById(id).orElseThrow(() -> new Exception("Workspace not found"));
+        Workspace oldWorkspace = workspaceRepository.findById(id).orElseThrow(() -> new Exception("Workspace not found"));
 
         Workspace newWorkspace = WorkspaceMapper.INSTANCE.WorkspaceDtoToWorkspace(dto);
         newWorkspace.setId(oldWorkspace.getId());
         newWorkspace.setCreationDate(oldWorkspace.getCreationDate());
         newWorkspace.setUpdateDate(LocalDateTime.now());
 
-        return repository.save(newWorkspace);
+        return workspaceRepository.save(newWorkspace);
     }
 }
