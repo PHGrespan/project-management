@@ -1,13 +1,14 @@
-package br.edu.unifaj.dto.model;
+package br.edu.unifaj.dto;
 
-import lombok.Value;
+import br.edu.unifaj.entity.Workspace;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * DTO for {@link br.edu.unifaj.domain.Workspace}
+ * DTO for {@link Workspace}
  */
-@Value
+@Data
 public class WorkspaceDto implements Serializable {
     String name;
     String description;
