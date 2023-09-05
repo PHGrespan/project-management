@@ -1,4 +1,4 @@
-package br.edu.unifaj.domain;
+package br.edu.unifaj.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
