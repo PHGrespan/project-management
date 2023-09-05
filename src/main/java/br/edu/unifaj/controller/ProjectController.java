@@ -26,7 +26,7 @@ public class ProjectController {
 
     @JsonView(View.Project.class)
     @PostMapping("/projects")
-    public ResponseEntity<Project> insertProjectByWorkspaceId(@Valid @RequestBody ProjectDto dto) throws Exception {
+    public ResponseEntity<Project> insertProject(@Valid @RequestBody ProjectDto dto) throws Exception {
         return new ResponseEntity<>(projectService.save(dto), HttpStatus.CREATED);
     }
     @JsonView(View.Project.class)
