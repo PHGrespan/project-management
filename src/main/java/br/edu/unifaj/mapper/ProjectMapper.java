@@ -12,5 +12,5 @@ public interface ProjectMapper {
     ProjectMapper INSTANCE = Mappers.getMapper(ProjectMapper.class);
 
     @Mapping(target="workspace.id", source="idWorkspace")
-    Project ProjectDtoToProject(ProjectDto dto);
+    Project projectDtoToProject(ProjectDto dto);
 }

@@ -19,9 +19,9 @@ public class ProjectService {
     WorkspaceRepository workspaceRepository;
 
     public Project save(ProjectDto dto) throws Exception {
-        Project newProject = ProjectMapper.INSTANCE.ProjectDtoToProject(dto);
+        Project newProject = ProjectMapper.INSTANCE.projectDtoToProject(dto);
 
-        Workspace workspace = workspaceRepository.findById(newProject.getWorkspace().getId()).orElseThrow(() -> new Exception("Workspace not found"));
+        Workspace workspace = workspaceRepository.findById(newProject.getWorkspace().getId()).orElseThrow(() -> new Exception("Project not found"));
 
         newProject.setWorkspace(workspace);
 
@@ -29,15 +29,15 @@ public class ProjectService {
     }
 
     public Project update(Long id, ProjectDto dto) throws Exception {
-        Project oldProject = projectRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
+        Project oldProject = projectRepository.findById(id).orElseThrow(() -> new Exception("Project not found"));
 
-        Project newProject = ProjectMapper.INSTANCE.ProjectDtoToProject(dto);
+        Project newProject = ProjectMapper.INSTANCE.projectDtoToProject(dto);
         newProject.setId(oldProject.getId());
 
         return projectRepository.save(newProject);
     }
 
     public Workspace findAllProjectsByWorkspaceId(Long workspaceId) throws Exception {
-        return workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("User not found"));
+        return workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("Workspace not found"));
     }
 }
