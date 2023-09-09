@@ -1,5 +1,6 @@
 package br.edu.unifaj.controller;
 
+import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.dto.WorkspaceDto;
 import br.edu.unifaj.entity.User;
 import br.edu.unifaj.entity.Workspace;
@@ -35,6 +36,12 @@ public class WorkspaceController {
     @PutMapping("/workspaces/{id}")
     public ResponseEntity<Workspace> updateWorkspace(@PathVariable(value = "id") Long id, @Valid @RequestBody WorkspaceDto dto) throws Exception {
         return new ResponseEntity<>(workspaceService.update(id, dto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/workspaces/{id}")
+    public ResponseEntity<ResponseDto> deleteCardById(@PathVariable(value = "id") Long id){
+        workspaceService.deleteWorkspaceById(id);
+        return new ResponseEntity<>(new ResponseDto("Workspace, Projects, Catalogs and Cards deleted"), HttpStatus.OK);
     }
 
 }

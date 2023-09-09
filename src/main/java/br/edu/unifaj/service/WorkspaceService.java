@@ -67,4 +67,8 @@ public class WorkspaceService {
 
         return workspaceRepository.save(newWorkspace);
     }
+
+    public void deleteWorkspaceById(Long id) {
+        workspaceRepository.deleteById(id);
+    }
 }

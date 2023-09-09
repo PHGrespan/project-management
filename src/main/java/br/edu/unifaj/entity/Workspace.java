@@ -52,7 +52,7 @@ public class Workspace {
     private Set<Project> projects = new LinkedHashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "workspace")
+    @OneToMany(mappedBy = "workspace", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<UserWorkspace> userWorkspaces = new LinkedHashSet<>();
 
 }
