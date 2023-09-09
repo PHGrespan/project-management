@@ -40,7 +40,7 @@ public class CardController {
     @DeleteMapping("/cards/{id}")
     public ResponseEntity<ResponseDto> deleteCardById(@PathVariable(value = "id") Long id){
         cardService.deleteCardById(id);
-        return new ResponseEntity<>(new ResponseDto("Failed to delete card"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDto("Card deleted"), HttpStatus.OK);
     }
 
 }
