@@ -9,6 +9,9 @@ import br.edu.unifaj.repository.CatalogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+
 @Service
 public class CardService {
 
@@ -18,11 +21,23 @@ public class CardService {
     @Autowired
     CatalogRepository catalogRepository;
 
-    public Card save(CardDto dto) throws Exception {
+    public Card insert(CardDto dto) throws Exception {
+
+        Catalog catalog = catalogRepository.findById(dto.getIdCatalog()).orElseThrow(() -> new Exception("Catalog not found"));
+
+        // Sort descending by catalogPosition
+        List<Card> cards = catalog.getCards();
+        cards.sort(Comparator.comparing(Card::getCatalogPosition).reversed());
+
+        // Update catalogPosition from other Cards
+        for (Card card : cards) {
+            if (card.getCatalogPosition() >= dto.getCatalogPosition()) {
+                card.setCatalogPosition(card.getCatalogPosition() + 1);
+                cardRepository.save(card);
+            }
+        }
+
         Card newCard = CardMapper.INSTANCE.cardDtoToCard(dto);
-
-        Catalog catalog = catalogRepository.findById(newCard.getCatalog().getId()).orElseThrow(() -> new Exception("Catalog not found"));
-
         newCard.setCatalog(catalog);
 
         return cardRepository.save(newCard);

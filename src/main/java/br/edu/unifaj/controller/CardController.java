@@ -28,7 +28,7 @@ public class CardController {
     @JsonView(View.Card.class)
     @PostMapping("/cards")
     public ResponseEntity<Card> insertCard(@Valid @RequestBody CardDto dto) throws Exception {
-        return new ResponseEntity<>(cardService.save(dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(cardService.insert(dto), HttpStatus.CREATED);
     }
 
     @JsonView(View.Card.class)

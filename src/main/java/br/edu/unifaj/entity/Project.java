@@ -9,8 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -48,6 +48,6 @@ public class Project {
 
     @JsonView(View.Catalog.class)
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Catalog> catalogs = new LinkedHashSet<>();
+    private List<Catalog> catalogs = new ArrayList<>();
 
 }

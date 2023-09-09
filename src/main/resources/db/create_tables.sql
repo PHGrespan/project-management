@@ -34,6 +34,7 @@ CREATE TABLE project
 
     workspace_id       BIGINT UNSIGNED,
     workspace_position INT          NOT NULL,
+    CONSTRAINT workspace_position UNIQUE (workspace_id, workspace_position),
 
     PRIMARY KEY (project_id),
     FOREIGN KEY (workspace_id) REFERENCES workspace (workspace_id)
@@ -46,6 +47,7 @@ CREATE TABLE catalog
 
     project_id       BIGINT UNSIGNED,
     project_position INT          NOT NULL,
+    CONSTRAINT project_position UNIQUE (project_id, project_position),
 
     PRIMARY KEY (catalog_id),
     FOREIGN KEY (project_id) REFERENCES project (project_id)
@@ -59,6 +61,7 @@ CREATE TABLE card
 
     catalog_id       BIGINT UNSIGNED,
     catalog_position INT          NOT NULL,
+    CONSTRAINT catalog_position UNIQUE (catalog_id, catalog_position),
 
     PRIMARY KEY (card_id),
     FOREIGN KEY (catalog_id) REFERENCES catalog (catalog_id)

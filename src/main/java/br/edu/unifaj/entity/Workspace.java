@@ -10,8 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -49,10 +49,10 @@ public class Workspace {
 
     @JsonView(View.Project.class)
     @OneToMany(mappedBy = "workspace", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Project> projects = new LinkedHashSet<>();
+    private List<Project> projects = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "workspace", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<UserWorkspace> userWorkspaces = new LinkedHashSet<>();
+    private List<UserWorkspace> userWorkspaces = new ArrayList<>();
 
 }
