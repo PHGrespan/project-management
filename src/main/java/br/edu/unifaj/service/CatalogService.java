@@ -1,13 +1,18 @@
 package br.edu.unifaj.service;
 
 import br.edu.unifaj.dto.CatalogDto;
+import br.edu.unifaj.entity.Card;
 import br.edu.unifaj.entity.Catalog;
 import br.edu.unifaj.entity.Project;
 import br.edu.unifaj.mapper.CatalogMapper;
+import br.edu.unifaj.repository.CardRepository;
 import br.edu.unifaj.repository.CatalogRepository;
 import br.edu.unifaj.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class CatalogService {
@@ -17,6 +22,9 @@ public class CatalogService {
 
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired
+    CardRepository cardRepository;
 
     public Catalog save(CatalogDto dto) throws Exception {
         Catalog newCatalog = CatalogMapper.INSTANCE.catalogDtoToCatalog(dto);
@@ -39,5 +47,16 @@ public class CatalogService {
 
     public Project findAllCatalogsByProjectId(Long projectId) throws Exception {
         return projectRepository.findById(projectId).orElseThrow(() -> new Exception("Project not found"));
+    }
+
+    @Transactional
+    public void deleteCatalogById(Long id) {
+        List<Card> cards = cardRepository.findAllByCatalogId(id);
+        for(Card card : cards){
+            cardRepository.deleteById(card.getId());
+        }
+
+        catalogRepository.deleteById(id);
+
     }
 }

@@ -1,6 +1,7 @@
 package br.edu.unifaj.controller;
 
 import br.edu.unifaj.dto.CatalogDto;
+import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.entity.Catalog;
 import br.edu.unifaj.entity.Project;
 import br.edu.unifaj.service.CatalogService;
@@ -33,6 +34,12 @@ public class CatalogController {
     @PutMapping("/catalogs/{id}")
     public ResponseEntity<Catalog> updateCatalog(@PathVariable(value = "id") Long id, @Valid @RequestBody CatalogDto dto) throws Exception {
         return new ResponseEntity<>(catalogService.update(id, dto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/catalogs/{id}")
+    public ResponseEntity<ResponseDto> deleteCatalogById(@PathVariable(value = "id") Long id){
+        catalogService.deleteCatalogById(id);
+        return new ResponseEntity<>(new ResponseDto("Catalog and Cards deleted"), HttpStatus.OK);
     }
 
 }
