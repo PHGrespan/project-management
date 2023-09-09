@@ -39,7 +39,7 @@ public class WorkspaceController {
     }
 
     @DeleteMapping("/workspaces/{id}")
-    public ResponseEntity<ResponseDto> deleteCardById(@PathVariable(value = "id") Long id){
+    public ResponseEntity<ResponseDto> deleteWorkspaceById(@PathVariable(value = "id") Long id){
         workspaceService.deleteWorkspaceById(id);
         return new ResponseEntity<>(new ResponseDto("Workspace, Projects, Catalogs and Cards deleted"), HttpStatus.OK);
     }
