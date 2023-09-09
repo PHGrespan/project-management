@@ -7,5 +7,5 @@ import java.io.Serializable;
 @Value
 public class ResponseDto implements Serializable {
 
-    private String message;
+    String message;
 }
