@@ -1,6 +1,7 @@
 package br.edu.unifaj.controller;
 
 import br.edu.unifaj.dto.CardDto;
+import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.entity.Card;
 import br.edu.unifaj.entity.Catalog;
 import br.edu.unifaj.service.CardService;
@@ -29,10 +30,17 @@ public class CardController {
     public ResponseEntity<Card> insertCard(@Valid @RequestBody CardDto dto) throws Exception {
         return new ResponseEntity<>(cardService.save(dto), HttpStatus.CREATED);
     }
+
     @JsonView(View.Card.class)
     @PutMapping("/cards/{id}")
     public ResponseEntity<Card> updateCard(@PathVariable(value = "id") Long id, @Valid @RequestBody CardDto dto) throws Exception {
         return new ResponseEntity<>(cardService.update(id, dto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/cards/{id}")
+    public ResponseEntity<ResponseDto> deleteCardById(@PathVariable(value = "id") Long id){
+        cardService.deleteCardById(id);
+        return new ResponseEntity<>(new ResponseDto("Failed to delete card"), HttpStatus.OK);
     }
 
 }

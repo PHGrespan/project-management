@@ -40,4 +40,9 @@ public class CardService {
     public Catalog findAllCardsByCatalogId(Long catalogId) throws Exception {
         return catalogRepository.findById(catalogId).orElseThrow(() -> new Exception("Catalog not found"));
     }
+
+    public void deleteCardById(Long id) {
+        cardRepository.deleteById(id);
+
+    }
 }
