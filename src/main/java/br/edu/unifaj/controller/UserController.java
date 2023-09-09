@@ -1,5 +1,6 @@
 package br.edu.unifaj.controller;
 
+import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.dto.UserDto;
 import br.edu.unifaj.entity.User;
 import br.edu.unifaj.service.UserService;
@@ -12,21 +13,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
 
     @JsonView(View.User.class)
-    @PostMapping
+    @PostMapping("/users")
     public ResponseEntity<User> insertUser(@Valid @RequestBody UserDto dto) {
         return new ResponseEntity<>(userService.save(dto), HttpStatus.CREATED);
     }
 
     @JsonView(View.User.class)
-    @PutMapping("/{id}")
+    @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id, @Valid @RequestBody UserDto dto) throws Exception {
         return new ResponseEntity<>(userService.update(id, dto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<ResponseDto> deleteUserById(@PathVariable(value = "id") Long id){
+        userService.deleteUserById(id);
+        return new ResponseEntity<>(new ResponseDto("User, Workspaces, Projects, Catalogs and Cards deleted"), HttpStatus.OK);
     }
 }
