@@ -48,7 +48,7 @@ public class Workspace {
     private LocalDateTime updateDate;
 
     @JsonView(View.Project.class)
-    @OneToMany(mappedBy = "workspace")
+    @OneToMany(mappedBy = "workspace", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Project> projects = new LinkedHashSet<>();
 
     @JsonIgnore

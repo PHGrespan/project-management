@@ -42,7 +42,7 @@ public class Catalog {
     private Integer projectPosition;
 
     @JsonView(View.Card.class)
-    @OneToMany(mappedBy = "catalog")
+    @OneToMany(mappedBy = "catalog", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Card> cards = new LinkedHashSet<>();
 
 }

@@ -49,14 +49,7 @@ public class CatalogService {
         return projectRepository.findById(projectId).orElseThrow(() -> new Exception("Project not found"));
     }
 
-    @Transactional
     public void deleteCatalogById(Long id) {
-        List<Card> cards = cardRepository.findAllByCatalogId(id);
-        for(Card card : cards){
-            cardRepository.deleteById(card.getId());
-        }
-
         catalogRepository.deleteById(id);
-
     }
 }
