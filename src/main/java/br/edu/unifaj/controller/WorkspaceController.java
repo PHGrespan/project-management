@@ -22,8 +22,8 @@ public class WorkspaceController {
 
     @JsonView(View.Workspace.class)
     @GetMapping("/users/{userId}/workspaces")
-    public ResponseEntity<User> getAllWorkspacesByUserId(@PathVariable(value = "userId") Long userId) throws Exception {
-        return new ResponseEntity<>(workspaceService.findAllWorkspacesByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<User> findUserWithWorkspacesByUserId(@PathVariable(value = "userId") Long userId) throws Exception {
+        return new ResponseEntity<>(workspaceService.findUserWithWorkspacesByUserId(userId), HttpStatus.OK);
     }
 
     @JsonView(View.Workspace.class)

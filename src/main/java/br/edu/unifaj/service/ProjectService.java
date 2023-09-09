@@ -37,7 +37,7 @@ public class ProjectService {
         return projectRepository.save(newProject);
     }
 
-    public Workspace findAllProjectsByWorkspaceId(Long workspaceId) throws Exception {
+    public Workspace findWorkspaceWithProjectsByWorkspaceId(Long workspaceId) throws Exception {
         return workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("Workspace not found"));
     }
 

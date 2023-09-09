@@ -21,8 +21,8 @@ public class ProjectController {
 
     @JsonView(View.Project.class)
     @GetMapping("/workspaces/{workspaceId}/projects")
-    public ResponseEntity<Workspace> findAllProjectsByWorkspaceId(@PathVariable(value = "workspaceId") Long workspaceId) throws Exception {
-        return new ResponseEntity<>(projectService.findAllProjectsByWorkspaceId(workspaceId), HttpStatus.OK);
+    public ResponseEntity<Workspace> findWorkspaceWithProjectsByWorkspaceId(@PathVariable(value = "workspaceId") Long workspaceId) throws Exception {
+        return new ResponseEntity<>(projectService.findWorkspaceWithProjectsByWorkspaceId(workspaceId), HttpStatus.OK);
     }
 
     @JsonView(View.Project.class)

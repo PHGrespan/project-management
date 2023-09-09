@@ -21,8 +21,8 @@ public class CardController {
 
     @JsonView(View.Card.class)
     @GetMapping("/catalogs/{catalogId}/cards")
-    public ResponseEntity<Catalog> findAllCardsByCatalogId(@PathVariable(value = "catalogId") Long catalogId) throws Exception {
-        return new ResponseEntity<>(cardService.findAllCardsByCatalogId(catalogId), HttpStatus.OK);
+    public ResponseEntity<Catalog> findCatalogWithCardsByCatalogId(@PathVariable(value = "catalogId") Long catalogId) throws Exception {
+        return new ResponseEntity<>(cardService.findCatalogWithCardsByCatalogId(catalogId), HttpStatus.OK);
     }
 
     @JsonView(View.Card.class)

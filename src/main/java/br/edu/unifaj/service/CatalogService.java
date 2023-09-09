@@ -1,7 +1,6 @@
 package br.edu.unifaj.service;
 
 import br.edu.unifaj.dto.CatalogDto;
-import br.edu.unifaj.entity.Card;
 import br.edu.unifaj.entity.Catalog;
 import br.edu.unifaj.entity.Project;
 import br.edu.unifaj.mapper.CatalogMapper;
@@ -10,9 +9,6 @@ import br.edu.unifaj.repository.CatalogRepository;
 import br.edu.unifaj.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class CatalogService {
@@ -45,7 +41,7 @@ public class CatalogService {
         return catalogRepository.save(newCatalog);
     }
 
-    public Project findAllCatalogsByProjectId(Long projectId) throws Exception {
+    public Project findProjectWithCatalogsByProjectId(Long projectId) throws Exception {
         return projectRepository.findById(projectId).orElseThrow(() -> new Exception("Project not found"));
     }
 

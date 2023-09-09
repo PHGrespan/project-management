@@ -21,8 +21,8 @@ public class CatalogController {
 
     @JsonView(View.Catalog.class)
     @GetMapping("/projects/{projectId}/catalogs")
-    public ResponseEntity<Project> findAllCatalogsByProjectId(@PathVariable(value = "projectId") Long projectId) throws Exception {
-        return new ResponseEntity<>(catalogService.findAllCatalogsByProjectId(projectId), HttpStatus.OK);
+    public ResponseEntity<Project> findProjectWithCatalogsByProjectId(@PathVariable(value = "projectId") Long projectId) throws Exception {
+        return new ResponseEntity<>(catalogService.findProjectWithCatalogsByProjectId(projectId), HttpStatus.OK);
     }
 
     @JsonView(View.Catalog.class)

@@ -37,7 +37,7 @@ public class CardService {
         return cardRepository.save(newCard);
     }
 
-    public Catalog findAllCardsByCatalogId(Long catalogId) throws Exception {
+    public Catalog findCatalogWithCardsByCatalogId(Long catalogId) throws Exception {
         return catalogRepository.findById(catalogId).orElseThrow(() -> new Exception("Catalog not found"));
     }
 
