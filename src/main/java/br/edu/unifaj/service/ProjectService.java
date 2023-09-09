@@ -40,4 +40,8 @@ public class ProjectService {
     public Workspace findAllProjectsByWorkspaceId(Long workspaceId) throws Exception {
         return workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("Workspace not found"));
     }
+
+    public void deleteProjectById(Long id) {
+        projectRepository.deleteById(id);
+    }
 }

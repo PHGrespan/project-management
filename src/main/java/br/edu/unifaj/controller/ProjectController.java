@@ -1,6 +1,7 @@
 package br.edu.unifaj.controller;
 
 import br.edu.unifaj.dto.ProjectDto;
+import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.entity.Project;
 import br.edu.unifaj.entity.Workspace;
 import br.edu.unifaj.service.ProjectService;
@@ -35,4 +36,10 @@ public class ProjectController {
         return new ResponseEntity<>(projectService.update(id, dto), HttpStatus.OK);
     }
 
+
+    @DeleteMapping("/projects/{id}")
+    public ResponseEntity<ResponseDto> deleteCardById(@PathVariable(value = "id") Long id){
+        projectService.deleteProjectById(id);
+        return new ResponseEntity<>(new ResponseDto("Project, Catalogs and Cards deleted"), HttpStatus.OK);
+    }
 }
