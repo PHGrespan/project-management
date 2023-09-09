@@ -4,14 +4,14 @@ import br.edu.unifaj.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Value;
 
 import java.io.Serializable;
 
 /**
  * DTO for {@link User}
  */
-@Data
+@Value
 public class UserDto implements Serializable {
 
     @NotBlank

@@ -3,14 +3,14 @@ package br.edu.unifaj.dto;
 import br.edu.unifaj.entity.Workspace;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Value;
 
 import java.io.Serializable;
 
 /**
  * DTO for {@link Workspace}
  */
-@Data
+@Value
 public class WorkspaceDto implements Serializable {
 
     @NotBlank

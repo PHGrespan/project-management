@@ -5,7 +5,7 @@ import br.edu.unifaj.entity.Card;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Value;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  * DTO for {@link Card}
  */
 
-@Data
+@Value
 public class CardDto implements Serializable {
 
     @NotBlank

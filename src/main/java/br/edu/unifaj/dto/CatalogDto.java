@@ -4,7 +4,7 @@ import br.edu.unifaj.entity.Catalog;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Value;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
  * DTO for {@link Catalog}
  */
 
-@Data
+@Value
 public class CatalogDto implements Serializable {
 
     @NotBlank
