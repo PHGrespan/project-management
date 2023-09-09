@@ -1,6 +1,7 @@
 package br.edu.unifaj.controller;
 
 import br.edu.unifaj.dto.ResponseDto;
+import br.edu.unifaj.dto.UserWorkspaceDto;
 import br.edu.unifaj.dto.WorkspaceDto;
 import br.edu.unifaj.entity.User;
 import br.edu.unifaj.entity.Workspace;
@@ -18,7 +19,6 @@ public class WorkspaceController {
 
     @Autowired
     WorkspaceService workspaceService;
-
 
     @JsonView(View.Workspace.class)
     @GetMapping("/users/{userId}/workspaces")
@@ -42,6 +42,12 @@ public class WorkspaceController {
     public ResponseEntity<ResponseDto> deleteWorkspaceById(@PathVariable(value = "id") Long id){
         workspaceService.deleteWorkspaceById(id);
         return new ResponseEntity<>(new ResponseDto("Workspace, Projects, Catalogs and Cards deleted"), HttpStatus.OK);
+    }
+
+    @JsonView(View.Workspace.class)
+    @PatchMapping("/workspaces")
+    public ResponseEntity<User> addUserToWorkspace(@Valid @RequestBody UserWorkspaceDto dto) throws Exception {
+        return new ResponseEntity<>(workspaceService.addUserToWorkspace(dto.getUserId(), dto.getWorkspaceId()), HttpStatus.OK);
     }
 
 }
