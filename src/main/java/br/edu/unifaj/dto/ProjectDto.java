@@ -1,6 +1,7 @@
 package br.edu.unifaj.dto;
 
 import br.edu.unifaj.entity.Project;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,8 +23,10 @@ public class ProjectDto implements Serializable {
     String description;
 
     @NotNull
+    @Min(1)
     Long idWorkspace;
 
     @NotNull
+    @Min(1)
     Integer workspacePosition;
 }

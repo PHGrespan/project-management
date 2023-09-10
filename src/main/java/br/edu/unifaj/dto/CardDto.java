@@ -24,6 +24,7 @@ public class CardDto implements Serializable {
     String description;
 
     @NotNull
+    @Min(1)
     Long idCatalog;
 
     @NotNull

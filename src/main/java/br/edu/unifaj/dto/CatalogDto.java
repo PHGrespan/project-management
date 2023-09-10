@@ -1,6 +1,7 @@
 package br.edu.unifaj.dto;
 
 import br.edu.unifaj.entity.Catalog;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,8 +21,10 @@ public class CatalogDto implements Serializable {
     String name;
 
     @NotNull
+    @Min(1)
     Long idProject;
 
     @NotNull
+    @Min(1)
     Integer projectPosition;
 }
