@@ -3,7 +3,6 @@ package br.edu.unifaj.controller;
 import br.edu.unifaj.dto.ProjectDto;
 import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.entity.Project;
-import br.edu.unifaj.entity.Workspace;
 import br.edu.unifaj.service.ProjectService;
 import br.edu.unifaj.view.View;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -19,10 +18,10 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
-    @JsonView(View.Project.class)
-    @GetMapping("/workspaces/{workspaceId}/projects")
-    public ResponseEntity<Workspace> findWorkspaceWithProjectsByWorkspaceId(@PathVariable(value = "workspaceId") Long workspaceId) throws Exception {
-        return new ResponseEntity<>(projectService.findWorkspaceWithProjectsByWorkspaceId(workspaceId), HttpStatus.OK);
+    @JsonView(View.Catalog.class)
+    @GetMapping("/projects/{projectId}/catalogs")
+    public ResponseEntity<Project> findProjectWithCatalogsByProjectId(@PathVariable(value = "projectId") Long projectId) throws Exception {
+        return new ResponseEntity<>(projectService.findProjectWithCatalogsByProjectId(projectId), HttpStatus.OK);
     }
 
     @JsonView(View.Project.class)

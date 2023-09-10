@@ -3,7 +3,6 @@ package br.edu.unifaj.controller;
 import br.edu.unifaj.dto.CardDto;
 import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.entity.Card;
-import br.edu.unifaj.entity.Catalog;
 import br.edu.unifaj.service.CardService;
 import br.edu.unifaj.view.View;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -19,12 +18,6 @@ public class CardController {
 
     @Autowired
     CardService cardService;
-
-    @JsonView(View.Card.class)
-    @GetMapping("/catalogs/{catalogId}/cards")
-    public ResponseEntity<Catalog> findCatalogWithCardsByCatalogId(@PathVariable(value = "catalogId") @NotNull Long catalogId) throws Exception {
-        return new ResponseEntity<>(cardService.findCatalogWithCardsByCatalogId(catalogId), HttpStatus.OK);
-    }
 
     @JsonView(View.Card.class)
     @PostMapping("/cards")

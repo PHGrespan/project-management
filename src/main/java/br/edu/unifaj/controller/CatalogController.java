@@ -3,11 +3,11 @@ package br.edu.unifaj.controller;
 import br.edu.unifaj.dto.CatalogDto;
 import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.entity.Catalog;
-import br.edu.unifaj.entity.Project;
 import br.edu.unifaj.service.CatalogService;
 import br.edu.unifaj.view.View;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ public class CatalogController {
     @Autowired
     CatalogService catalogService;
 
-    @JsonView(View.Catalog.class)
-    @GetMapping("/projects/{projectId}/catalogs")
-    public ResponseEntity<Project> findProjectWithCatalogsByProjectId(@PathVariable(value = "projectId") Long projectId) throws Exception {
-        return new ResponseEntity<>(catalogService.findProjectWithCatalogsByProjectId(projectId), HttpStatus.OK);
+    @JsonView(View.Card.class)
+    @GetMapping("/catalogs/{catalogId}/cards")
+    public ResponseEntity<Catalog> findCatalogWithCardsByCatalogId(@PathVariable(value = "catalogId") @NotNull Long catalogId) throws Exception {
+        return new ResponseEntity<>(catalogService.findCatalogWithCardsByCatalogId(catalogId), HttpStatus.OK);
     }
 
     @JsonView(View.Catalog.class)

@@ -9,11 +9,13 @@ import br.edu.unifaj.repository.UserWorkspaceRepository;
 import br.edu.unifaj.repository.WorkspaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -24,6 +26,10 @@ public class UserService {
 
     @Autowired
     private WorkspaceRepository workspaceRepository;
+
+    public User findUserWithWorkspacesByUserId(Long userId) throws Exception {
+        return userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
+    }
 
     public User save(UserDto dto) {
         User newUser = UserMapper.INSTANCE.UserDtoToUser(dto);

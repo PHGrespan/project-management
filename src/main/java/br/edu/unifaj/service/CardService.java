@@ -89,11 +89,6 @@ public class CardService {
         return cardRepository.save(newCard);
     }
 
-
-    public Catalog findCatalogWithCardsByCatalogId(Long catalogId) throws Exception {
-        return catalogRepository.findById(catalogId).orElseThrow(() -> new Exception("Catalog not found"));
-    }
-
     public void deleteCardById(Long id) throws Exception {
         Card card = cardRepository.findById(id).orElseThrow(() -> new Exception("Catalog not found"));
         cardRepository.deleteById(id);

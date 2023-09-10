@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 @Service
+@Transactional
 public class WorkspaceService {
 
     @Autowired
@@ -27,11 +28,10 @@ public class WorkspaceService {
     @Autowired
     UserWorkspaceRepository userWorkspaceRepository;
 
-    public User findUserWithWorkspacesByUserId(Long userId) throws Exception {
-        return userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
+    public Workspace findWorkspaceWithProjectsByWorkspaceId(Long workspaceId) throws Exception {
+        return workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("Workspace not found"));
     }
 
-    @Transactional
     public Workspace save(Long userId, WorkspaceDto dto) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
 

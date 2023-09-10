@@ -8,8 +8,10 @@ import br.edu.unifaj.repository.ProjectRepository;
 import br.edu.unifaj.repository.WorkspaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class ProjectService {
 
     @Autowired
@@ -17,6 +19,10 @@ public class ProjectService {
 
     @Autowired
     WorkspaceRepository workspaceRepository;
+
+    public Project findProjectWithCatalogsByProjectId(Long projectId) throws Exception {
+        return projectRepository.findById(projectId).orElseThrow(() -> new Exception("Project not found"));
+    }
 
     public Project save(ProjectDto dto) throws Exception {
         Project newProject = ProjectMapper.INSTANCE.projectDtoToProject(dto);
@@ -35,10 +41,6 @@ public class ProjectService {
         newProject.setId(oldProject.getId());
 
         return projectRepository.save(newProject);
-    }
-
-    public Workspace findWorkspaceWithProjectsByWorkspaceId(Long workspaceId) throws Exception {
-        return workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("Workspace not found"));
     }
 
     public void deleteProjectById(Long id) {

@@ -20,10 +20,10 @@ public class WorkspaceController {
     @Autowired
     WorkspaceService workspaceService;
 
-    @JsonView(View.Workspace.class)
-    @GetMapping("/users/{userId}/workspaces")
-    public ResponseEntity<User> findUserWithWorkspacesByUserId(@PathVariable(value = "userId") Long userId) throws Exception {
-        return new ResponseEntity<>(workspaceService.findUserWithWorkspacesByUserId(userId), HttpStatus.OK);
+    @JsonView(View.Project.class)
+    @GetMapping("/workspaces/{workspaceId}/projects")
+    public ResponseEntity<Workspace> findWorkspaceWithProjectsByWorkspaceId(@PathVariable(value = "workspaceId") Long workspaceId) throws Exception {
+        return new ResponseEntity<>(workspaceService.findWorkspaceWithProjectsByWorkspaceId(workspaceId), HttpStatus.OK);
     }
 
     @JsonView(View.Workspace.class)

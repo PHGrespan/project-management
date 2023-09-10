@@ -18,6 +18,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @JsonView(View.Workspace.class)
+    @GetMapping("/users/{userId}/workspaces")
+    public ResponseEntity<User> findUserWithWorkspacesByUserId(@PathVariable(value = "userId") Long userId) throws Exception {
+        return new ResponseEntity<>(userService.findUserWithWorkspacesByUserId(userId), HttpStatus.OK);
+    }
+
     @JsonView(View.User.class)
     @PostMapping("/users")
     public ResponseEntity<User> insertUser(@Valid @RequestBody UserDto dto) {
