@@ -2,6 +2,7 @@ package br.edu.unifaj.dto;
 
 
 import br.edu.unifaj.entity.Card;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,5 +27,6 @@ public class CardDto implements Serializable {
     Long idCatalog;
 
     @NotNull
+    @Min(1)
     Integer catalogPosition;
 }
