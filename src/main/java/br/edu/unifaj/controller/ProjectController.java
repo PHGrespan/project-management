@@ -27,7 +27,7 @@ public class ProjectController {
     @JsonView(View.Project.class)
     @PostMapping("/projects")
     public ResponseEntity<Project> insertProject(@Valid @RequestBody ProjectDto dto) throws Exception {
-        return new ResponseEntity<>(projectService.save(dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(projectService.insert(dto), HttpStatus.CREATED);
     }
     @JsonView(View.Project.class)
     @PutMapping("/projects/{id}")
@@ -37,7 +37,7 @@ public class ProjectController {
 
 
     @DeleteMapping("/projects/{id}")
-    public ResponseEntity<ResponseDto> deleteCardById(@PathVariable(value = "id") Long id){
+    public ResponseEntity<ResponseDto> deleteCardById(@PathVariable(value = "id") Long id) throws Exception {
         projectService.deleteProjectById(id);
         return new ResponseEntity<>(new ResponseDto("Project, Catalogs and Cards deleted"), HttpStatus.OK);
     }
