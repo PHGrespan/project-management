@@ -28,7 +28,7 @@ public class CatalogController {
     @JsonView(View.Catalog.class)
     @PostMapping("/catalogs")
     public ResponseEntity<Catalog> insertCatalog(@Valid @RequestBody CatalogDto dto) throws Exception {
-        return new ResponseEntity<>(catalogService.save(dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(catalogService.insert(dto), HttpStatus.CREATED);
     }
     @JsonView(View.Catalog.class)
     @PutMapping("/catalogs/{id}")
@@ -37,7 +37,7 @@ public class CatalogController {
     }
 
     @DeleteMapping("/catalogs/{id}")
-    public ResponseEntity<ResponseDto> deleteCatalogById(@PathVariable(value = "id") Long id){
+    public ResponseEntity<ResponseDto> deleteCatalogById(@PathVariable(value = "id") Long id) throws Exception {
         catalogService.deleteCatalogById(id);
         return new ResponseEntity<>(new ResponseDto("Catalog and Cards deleted"), HttpStatus.OK);
     }
