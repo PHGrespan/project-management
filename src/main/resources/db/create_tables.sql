@@ -29,11 +29,11 @@ CREATE TABLE workspace
 CREATE TABLE project
 (
     project_id         SERIAL,
-    name               VARCHAR(255) NOT NULL,
-    description        VARCHAR(255) NOT NULL,
+    name               VARCHAR(255)    NOT NULL,
+    description        VARCHAR(255)    NOT NULL,
 
-    workspace_id       BIGINT UNSIGNED,
-    workspace_position INT          NOT NULL,
+    workspace_id       BIGINT UNSIGNED NOT NULL,
+    workspace_position INT UNSIGNED    NOT NULL,
     CONSTRAINT workspace_position UNIQUE (workspace_id, workspace_position),
 
     PRIMARY KEY (project_id),
@@ -43,10 +43,10 @@ CREATE TABLE project
 CREATE TABLE catalog
 (
     catalog_id       SERIAL,
-    name             VARCHAR(255) NOT NULL,
+    name             VARCHAR(255)    NOT NULL,
 
-    project_id       BIGINT UNSIGNED,
-    project_position INT          NOT NULL,
+    project_id       BIGINT UNSIGNED NOT NULL,
+    project_position INT UNSIGNED    NOT NULL,
     CONSTRAINT project_position UNIQUE (project_id, project_position),
 
     PRIMARY KEY (catalog_id),
@@ -56,11 +56,11 @@ CREATE TABLE catalog
 CREATE TABLE card
 (
     card_id          SERIAL,
-    name             VARCHAR(255) NOT NULL,
-    description      VARCHAR(255) NOT NULL,
+    name             VARCHAR(255)    NOT NULL,
+    description      VARCHAR(255)    NOT NULL,
 
-    catalog_id       BIGINT UNSIGNED,
-    catalog_position INT          NOT NULL,
+    catalog_id       BIGINT UNSIGNED NOT NULL,
+    catalog_position INT UNSIGNED    NOT NULL,
     CONSTRAINT catalog_position UNIQUE (catalog_id, catalog_position),
 
     PRIMARY KEY (card_id),
@@ -69,9 +69,9 @@ CREATE TABLE card
 
 CREATE TABLE user_workspace
 (
-    user_id      BIGINT UNSIGNED,
-    workspace_id BIGINT UNSIGNED,
-    owner        boolean NOT NULL,
+    user_id      BIGINT UNSIGNED NOT NULL,
+    workspace_id BIGINT UNSIGNED NOT NULL,
+    owner        BOOLEAN         NOT NULL,
 
     PRIMARY KEY (user_id, workspace_id),
     FOREIGN KEY (user_id) REFERENCES user (user_id),
