@@ -27,5 +27,5 @@ public interface CardRepository extends JpaRepository<Card, Long> {
                                                                                     @Param("increment") Integer increment);
 
     @Query(value = "SELECT MAX(catalog_position) FROM card WHERE catalog_id = :catalogId", nativeQuery = true)
-    List<Integer> findMaxCatalogPosition(@Param("catalogId") Long catalogId);
+    List<Integer> findMaxCatalogPositionByCatalogId(@Param("catalogId") Long catalogId);
 }

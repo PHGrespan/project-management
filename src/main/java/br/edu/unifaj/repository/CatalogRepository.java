@@ -27,5 +27,5 @@ public interface CatalogRepository extends JpaRepository<Catalog, Long> {
                                                                                        @Param("increment") Integer increment);
 
     @Query(value = "SELECT MAX(project_position) FROM catalog WHERE project_id = :projectId", nativeQuery = true)
-    List<Integer> findMaxProjectPosition(@Param("projectId") Long projectId);
+    List<Integer> findMaxProjectPositionByProjectId(@Param("projectId") Long projectId);
 }

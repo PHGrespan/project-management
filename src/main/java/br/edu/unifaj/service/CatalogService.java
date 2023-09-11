@@ -32,7 +32,7 @@ public class CatalogService {
             throw new Exception("Catalog must be in projectPosition between " + 1 + " and " + (project.getCatalogs().size() + 1));
         }
 
-        catalogRepository.updateAllCatalogsIncrementProjectPositionByProjectIdAndProjectPositionBetween(project.getId(), newCatalog.getProjectPosition(), catalogRepository.findMaxProjectPosition(project.getId()).get(0), 1);
+        catalogRepository.updateAllCatalogsIncrementProjectPositionByProjectIdAndProjectPositionBetween(project.getId(), newCatalog.getProjectPosition(), catalogRepository.findMaxProjectPositionByProjectId(project.getId()).get(0), 1);
 
         newCatalog.setProject(project);
 
@@ -40,25 +40,26 @@ public class CatalogService {
     }
 
     public Catalog update(Long id, CatalogDto dto) throws Exception {
-        Project project =projectRepository.findById(dto.getIdProject()).orElseThrow(() -> new Exception("Project not found"));
+        Project project = projectRepository.findById(dto.getIdProject()).orElseThrow(() -> new Exception("Project not found"));
         Catalog oldCatalog = catalogRepository.findById(id).orElseThrow(() -> new Exception("Catalog not found"));
 
         Catalog newCatalog = CatalogMapper.INSTANCE.catalogDtoToCatalog(dto);
 
         // Validations
-        // Same Catalog
+        // Same Project
         if ((newCatalog.getProject().getId().equals(oldCatalog.getProject().getId()) && newCatalog.getProjectPosition() > project.getCatalogs().size())) {
-            throw new Exception("Catalog must be in catalogPosition between " + 1 + " and " + (project.getCatalogs().size()));
+            throw new Exception("Catalog must be in projectPosition between " + 1 + " and " + (project.getCatalogs().size()));
 
-            // Different Catalog
+            // Different Project
         } else if (newCatalog.getProjectPosition() > project.getCatalogs().size() + 1) {
-            throw new Exception("Catalog must be in catalogPosition between " + 1 + " and " + (project.getCatalogs().size() + 1));
+            throw new Exception("Catalog must be in projectPosition between " + 1 + " and " + (project.getCatalogs().size() + 1));
         }
 
         newCatalog.setId(oldCatalog.getId());
         Integer oldProjectPosition = oldCatalog.getProjectPosition();
         Integer newProjectPosition = newCatalog.getProjectPosition();
 
+        // Move Catalog to projectPosition 0
         oldCatalog.setProjectPosition(0);
         catalogRepository.save(oldCatalog);
 
@@ -83,9 +84,9 @@ public class CatalogService {
             // Different Project
         } else {
             // Decreases 1 in the projectPosition of Catalogs that have projectPosition before the old Catalog
-            catalogRepository.updateAllCatalogsDecrementProjectPositionByProjectIdAndProjectPositionBetween(oldCatalog.getProject().getId(), oldProjectPosition + 1, catalogRepository.findMaxProjectPosition(oldCatalog.getProject().getId()).get(0), 1);
+            catalogRepository.updateAllCatalogsDecrementProjectPositionByProjectIdAndProjectPositionBetween(oldCatalog.getProject().getId(), oldProjectPosition + 1, catalogRepository.findMaxProjectPositionByProjectId(oldCatalog.getProject().getId()).get(0), 1);
             // Increments 1 in the projectPosition of the Catalogs that should be after the new Catalog
-            catalogRepository.updateAllCatalogsIncrementProjectPositionByProjectIdAndProjectPositionBetween(newCatalog.getProject().getId(), dto.getProjectPosition(), catalogRepository.findMaxProjectPosition(newCatalog.getProject().getId()).get(0), 1);
+            catalogRepository.updateAllCatalogsIncrementProjectPositionByProjectIdAndProjectPositionBetween(newCatalog.getProject().getId(), dto.getProjectPosition(), catalogRepository.findMaxProjectPositionByProjectId(newCatalog.getProject().getId()).get(0), 1);
         }
 
         return catalogRepository.save(newCatalog);
@@ -94,6 +95,6 @@ public class CatalogService {
     public void deleteCatalogById(Long id) throws Exception {
         Catalog catalog = catalogRepository.findById(id).orElseThrow(() -> new Exception("Catalog not found"));
         catalogRepository.deleteById(id);
-        catalogRepository.updateAllCatalogsDecrementProjectPositionByProjectIdAndProjectPositionBetween(catalog.getProject().getId(), 2, catalog.getProjectPosition() + 1, 1);
+        catalogRepository.updateAllCatalogsDecrementProjectPositionByProjectIdAndProjectPositionBetween(catalog.getProject().getId(), catalog.getProjectPosition() + 1, catalogRepository.findMaxProjectPositionByProjectId(catalog.getProject().getId()).get(0), 1);
     }
 }
