@@ -18,6 +18,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
                                                                                     @Param("catalogPositionInitial") Integer catalogPositionInitial,
                                                                                     @Param("catalogPositionFinal") Integer catalogPositionFinal,
                                                                                     @Param("decrement") Integer decrement);
+
     @Modifying
     @Query(value = "UPDATE card c SET c.catalog_position = c.catalog_position + :increment where c.catalog_id = :catalogId AND c.catalog_position BETWEEN :catalogPositionInitial AND :catalogPositionFinal ORDER BY catalog_position DESC", nativeQuery = true)
     void updateAllCardsIncrementCatalogPositionByCatalogIdAndCatalogPositionBetween(@Param("catalogId") Long catalogId,
@@ -25,7 +26,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
                                                                                     @Param("catalogPositionFinal") Integer catalogPositionFinal,
                                                                                     @Param("increment") Integer increment);
 
-    @Modifying
     @Query(value = "SELECT MAX(catalog_position) FROM card WHERE catalog_id = :catalogId", nativeQuery = true)
     List<Integer> findMaxCatalogPosition(@Param("catalogId") Long catalogId);
 }

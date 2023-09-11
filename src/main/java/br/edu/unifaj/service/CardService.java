@@ -59,7 +59,6 @@ public class CardService {
         oldCard.setCatalogPosition(0);
         cardRepository.save(oldCard);
 
-
         // Same Catalog
         if (newCard.getCatalog().getId().equals(oldCard.getCatalog().getId())) {
 
@@ -93,6 +92,6 @@ public class CardService {
         Card card = cardRepository.findById(id).orElseThrow(() -> new Exception("Catalog not found"));
         cardRepository.deleteById(id);
         // Decreases 1 in the catalogPosition of Cards that were before the deleted Card
-        cardRepository.updateAllCardsDecrementCatalogPositionByCatalogIdAndCatalogPositionBetween(card.getCatalog().getId(), 1, card.getCatalogPosition() + 1, 1);
+        cardRepository.updateAllCardsDecrementCatalogPositionByCatalogIdAndCatalogPositionBetween(card.getCatalog().getId(), 2, card.getCatalogPosition() + 1, 1);
     }
 }
