@@ -20,7 +20,7 @@ public class CatalogService {
     @Autowired
     ProjectRepository projectRepository;
 
-    public Catalog findCatalogWithCardsByCatalogId(Long catalogId) throws Exception {
+    public Catalog findById(Long catalogId) throws Exception {
         return catalogRepository.findById(catalogId).orElseThrow(() -> new Exception("Catalog not found"));
     }
 

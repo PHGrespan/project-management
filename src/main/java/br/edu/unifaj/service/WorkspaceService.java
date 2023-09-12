@@ -28,7 +28,7 @@ public class WorkspaceService {
     @Autowired
     UserWorkspaceRepository userWorkspaceRepository;
 
-    public Workspace findWorkspaceWithProjectsByWorkspaceId(Long workspaceId) throws Exception {
+    public Workspace findById(Long workspaceId) throws Exception {
         return workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("Workspace not found"));
     }
 

@@ -23,7 +23,7 @@ public class WorkspaceController {
     @JsonView(View.Project.class)
     @GetMapping("/workspaces/{workspaceId}/projects")
     public ResponseEntity<Workspace> findWorkspaceWithProjectsByWorkspaceId(@PathVariable(value = "workspaceId") Long workspaceId) throws Exception {
-        return new ResponseEntity<>(workspaceService.findWorkspaceWithProjectsByWorkspaceId(workspaceId), HttpStatus.OK);
+        return new ResponseEntity<>(workspaceService.findById(workspaceId), HttpStatus.OK);
     }
 
     @JsonView(View.Workspace.class)

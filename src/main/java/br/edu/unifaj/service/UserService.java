@@ -27,7 +27,7 @@ public class UserService {
     @Autowired
     private WorkspaceRepository workspaceRepository;
 
-    public User findUserWithWorkspacesByUserId(Long userId) throws Exception {
+    public User findById(Long userId) throws Exception {
         return userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
     }
 

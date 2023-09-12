@@ -20,7 +20,7 @@ public class ProjectService {
     @Autowired
     WorkspaceRepository workspaceRepository;
 
-    public Project findProjectWithCatalogsByProjectId(Long projectId) throws Exception {
+    public Project findById(Long projectId) throws Exception {
         return projectRepository.findById(projectId).orElseThrow(() -> new Exception("Project not found"));
     }
 

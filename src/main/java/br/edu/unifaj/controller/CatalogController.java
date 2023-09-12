@@ -22,7 +22,7 @@ public class CatalogController {
     @JsonView(View.Card.class)
     @GetMapping("/catalogs/{catalogId}/cards")
     public ResponseEntity<Catalog> findCatalogWithCardsByCatalogId(@PathVariable(value = "catalogId") @NotNull Long catalogId) throws Exception {
-        return new ResponseEntity<>(catalogService.findCatalogWithCardsByCatalogId(catalogId), HttpStatus.OK);
+        return new ResponseEntity<>(catalogService.findById(catalogId), HttpStatus.OK);
     }
 
     @JsonView(View.Catalog.class)
