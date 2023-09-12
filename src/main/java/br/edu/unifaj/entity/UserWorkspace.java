@@ -26,7 +26,7 @@ public class UserWorkspace {
 
     @JsonView(View.Workspace.class)
     @MapsId("workspaceId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "workspace_id", nullable = false)
     private Workspace workspace;
 
