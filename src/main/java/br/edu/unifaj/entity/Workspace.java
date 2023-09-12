@@ -1,6 +1,7 @@
 package br.edu.unifaj.entity;
 
 import br.edu.unifaj.view.View;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -10,8 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -39,20 +40,22 @@ public class Workspace {
 
     @JsonView(View.Workspace.class)
     @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
     @JsonView(View.Workspace.class)
     @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
 
     @JsonView(View.Project.class)
-    @OneToMany(mappedBy = "workspace", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Project> projects = new ArrayList<>();
+    @OneToMany(mappedBy = "workspace", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Project> projects = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "workspace", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<UserWorkspace> userWorkspaces = new ArrayList<>();
+    @OneToMany(mappedBy = "workspace", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<UserWorkspace> userWorkspaces = new HashSet<>();
 
 }

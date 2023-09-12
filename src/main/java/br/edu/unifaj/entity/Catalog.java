@@ -9,8 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -42,7 +42,7 @@ public class Catalog {
     private Integer projectPosition;
 
     @JsonView(View.Card.class)
-    @OneToMany(mappedBy = "catalog", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Card> cards = new ArrayList<>();
+    @OneToMany(mappedBy = "catalog", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Card> cards = new HashSet<>();
 
 }
