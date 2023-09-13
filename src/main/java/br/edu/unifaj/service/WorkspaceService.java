@@ -32,7 +32,7 @@ public class WorkspaceService {
         return workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("Workspace not found"));
     }
 
-    public Workspace save(Long userId, WorkspaceDto dto) throws Exception {
+    public Workspace insert(Long userId, WorkspaceDto dto) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
 
         Workspace newWorkspace= WorkspaceMapper.INSTANCE.WorkspaceDtoToWorkspace(dto);

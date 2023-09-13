@@ -29,7 +29,7 @@ public class WorkspaceController {
     @JsonView(View.Workspace.class)
     @PostMapping("/users/{userId}/workspaces")
     public ResponseEntity<Workspace> insertWorkspaceByUserId(@PathVariable(value = "userId") Long userId, @Valid @RequestBody WorkspaceDto dto) throws Exception {
-        return new ResponseEntity<>(workspaceService.save(userId, dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(workspaceService.insert(userId, dto), HttpStatus.CREATED);
     }
 
     @JsonView(View.Workspace.class)

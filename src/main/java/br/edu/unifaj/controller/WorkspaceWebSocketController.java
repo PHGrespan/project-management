@@ -14,7 +14,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class UserWebSocketController {
+public class WorkspaceWebSocketController {
 
     @Autowired
     UserService userService;
@@ -26,10 +26,9 @@ public class UserWebSocketController {
     @MessageMapping("/user/{userId}/workspace.add")
     @SendTo("/topic/user/{userId}/workspace.list")
     public User insertWorkspace(@DestinationVariable Long userId, @Payload WorkspaceDto workspace) throws Exception {
-        workspaceService.save(userId, workspace);
+        workspaceService.insert(userId, workspace);
         return userService.findById(userId);
     }
-
 
     @JsonView(View.Workspace.class)
     @MessageMapping("/user/{userId}/workspace.update/{workspaceId}")
