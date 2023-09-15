@@ -35,7 +35,6 @@ public class ProjectRestController {
         return new ResponseEntity<>(projectService.update(id, dto), HttpStatus.OK);
     }
 
-
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<ResponseDto> deleteCardById(@PathVariable(value = "id") Long id) throws Exception {
         projectService.deleteProjectById(id);

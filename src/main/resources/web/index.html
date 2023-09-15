@@ -8,6 +8,8 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
     <script src="app.js"></script>
+    <script src="workspace.js"></script>
+    <script src="project.js"></script>
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
@@ -39,23 +41,28 @@
                 <button id="insert" class="btn btn-default" type="submit">Insert</button>
             </form>
         </div>
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>Create Project</label>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="projectName" class="form-control" placeholder="Name">
+                    <label for="description">Description</label>
+                    <input type="text" id="projectDescription" class="form-control" placeholder="Description">
+                    <label for="description">Id Workspace</label>
+                    <input type="number" id="projectIdWorkspace" class="form-control" placeholder="Id Workspace">
+                    <label for="description">Workspace Position</label>
+                    <input type="number" id="projectWorkspacePosition" class="form-control" placeholder="Workspace Position">
+                </div>
+                <button id="insertProject" class="btn btn-default" type="submit">Insert</button>
+            </form>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <table id="conversation" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Creation Date</th>
-                    <th>Update Date</th>
-                    <th>Owner</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody id="workspaces">
-                </tbody>
             </table>
         </div>
     </div>

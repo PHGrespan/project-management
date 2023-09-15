@@ -47,7 +47,7 @@ public class Project {
     private Integer workspacePosition;
 
     @JsonView(View.Catalog.class)
-    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Catalog> catalogs = new HashSet<>();
 
 }
