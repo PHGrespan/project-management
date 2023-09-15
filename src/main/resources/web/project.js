@@ -77,10 +77,8 @@ function showProjects(workspaces) {
                 $("#projects" + workspaceId).append("<td><input id='projectWorkspacePosition_" + rowId + "' value='" + project.workspacePosition + "'></td>");
                 $("#projects" + workspaceId).append("<td><button onclick='updateProject(" + rowId + ", " + workspaceId + ")'>Update</button>");
                 $("#projects" + workspaceId).append("<button onclick='deleteProject(" + rowId + "," + workspaceId + ")'>Delete</button></td>");
-                // $("#projects").append("<button onclick='showCards(\"" + rowId + "\")'>Cards</button>");
                 $("#projects").append("</tr>")
             });
         }
-        console.log($("#conversation").html());
     });
 }
