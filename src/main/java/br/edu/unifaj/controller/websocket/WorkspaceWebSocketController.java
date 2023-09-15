@@ -1,4 +1,4 @@
-package br.edu.unifaj.controller;
+package br.edu.unifaj.controller.websocket;
 
 import br.edu.unifaj.dto.WorkspaceDto;
 import br.edu.unifaj.entity.User;

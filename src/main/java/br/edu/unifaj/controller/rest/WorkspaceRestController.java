@@ -1,4 +1,4 @@
-package br.edu.unifaj.controller;
+package br.edu.unifaj.controller.rest;
 
 import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.dto.UserWorkspaceDto;
@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class WorkspaceController {
+public class WorkspaceRestController {
 
     @Autowired
     WorkspaceService workspaceService;

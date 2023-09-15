@@ -1,4 +1,4 @@
-package br.edu.unifaj.controller;
+package br.edu.unifaj.controller.rest;
 
 import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.dto.UserDto;
@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class UserController {
+public class UserRestController {
 
     @Autowired
     UserService userService;
