@@ -4,46 +4,24 @@ const stompClient = new StompJs.Client({
 
 stompClient.onConnect = (frame) => {
     setConnected(true);
-    console.log('Connected: ' + frame);
+    console.log(`Connected: ${frame}`);
 
     var requestOptions = {
         method: 'GET',
         redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/users/" + userId + "/workspaces", requestOptions)
+    stompClient.subscribe(`/topic/user/${userId}/workspace.list`, (user) => {
+        showWorkspaces(JSON.parse(user.body));
+    });
+    console.log(`SUBSCRIBED: /topic/user/${userId}/workspace.list`);
+
+    fetch(`http://localhost:8080/users/${userId}/workspaces`, requestOptions)
         .then(response => response.json())
         .then(json => {
             showWorkspaces(json);
-
-            stompClient.subscribe('/topic/user/' + userId + '/workspace.list', (user) => {
-                showWorkspaces(JSON.parse(user.body));
-            });
-            console.log('SUBSCRIBED: /topic/user/' + userId + '/workspace.list');
-
-            json.workspaces.forEach(workspaces => {
-
-                workspaceId = workspaces.workspace.id;
-
-                var requestOptions = {
-                    method: 'GET',
-                    redirect: 'follow'
-                };
-
-                fetch("http://localhost:8080/workspaces/" + workspaceId + "/projects", requestOptions)
-                    .then(response => response.json())
-                    .then(json => showProjects(json))
-                    .catch(error => console.log('error', error));
-
-                stompClient.subscribe("/topic/workspace/" + workspaceId + "/project.list", (workspace) => {
-                    showProjects(JSON.parse(workspace.body));
-                });
-                console.log('SUBSCRIBED: /topic/workspace/' + workspaceId + '/project.list');
-            });
         })
         .catch(error => console.log('error', error));
-
-
 };
 
 stompClient.onWebSocketError = (error) => {
@@ -51,17 +29,17 @@ stompClient.onWebSocketError = (error) => {
 };
 
 stompClient.onStompError = (frame) => {
-    console.error('Broker reported error: ' + frame.headers['message']);
-    console.error('Additional details: ' + frame.body);
+    console.error(`Broker reported error: ${frame.headers['message']}`);
+    console.error(`Additional details: ${frame.body}`);
 };
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
-        $("#conversation").show();
+        $("#tables").show();
     } else {
-        $("#conversation").hide();
+        $("#tables").hide();
     }
 }
 
