@@ -8,7 +8,6 @@ CREATE TABLE user
     name          VARCHAR(255) NOT NULL,
     email         VARCHAR(255) NOT NULL UNIQUE,
     pass          VARCHAR(255) NOT NULL,
-
     creation_date DATETIME     NOT NULL,
 
     PRIMARY KEY (user_id)
