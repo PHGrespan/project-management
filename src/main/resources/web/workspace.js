@@ -55,7 +55,7 @@ function showWorkspaces(user) {
                 redirect: 'follow'
             };
 
-            fetch(`http://localhost:8080/workspaces/${workspaceId}/projects`, requestOptions)
+            fetch(`http://localhost:8082/workspaces/${workspaceId}/projects`, requestOptions)
                 .then(response => response.json())
                 .then(json => {
                     showProjects(json)

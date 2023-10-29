@@ -1,5 +1,5 @@
 const stompClient = new StompJs.Client({
-    brokerURL: 'ws://localhost:8080/ws'
+    brokerURL: 'ws://localhost:8082/ws',
 });
 
 stompClient.onConnect = (frame) => {
@@ -16,7 +16,7 @@ stompClient.onConnect = (frame) => {
     });
     console.log(`SUBSCRIBED: /topic/user/${userId}/workspace.list`);
 
-    fetch(`http://localhost:8080/users/${userId}/workspaces`, requestOptions)
+    fetch(`http://localhost:8082/users/${userId}/workspaces`, requestOptions)
         .then(response => response.json())
         .then(json => {
             showWorkspaces(json);
