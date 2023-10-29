@@ -2,6 +2,7 @@ package br.edu.unifaj.controller.rest;
 
 import br.edu.unifaj.dto.ResponseDto;
 import br.edu.unifaj.dto.UserDto;
+import br.edu.unifaj.dto.UserLoginDto;
 import br.edu.unifaj.entity.User;
 import br.edu.unifaj.service.UserService;
 import br.edu.unifaj.view.View;
@@ -13,21 +14,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:63343/")
 public class UserRestController {
 
     @Autowired
     UserService userService;
 
+    @JsonView(View.User.class)
+    @PostMapping("/users/register")
+    public ResponseEntity<User> register(@Valid @RequestBody UserDto dto) {
+        return new ResponseEntity<>(userService.save(dto), HttpStatus.CREATED);
+    }
+
+    @JsonView(View.User.class)
+    @PostMapping("/users/login")
+    public ResponseEntity<User> login(@Valid @RequestBody UserLoginDto dto) throws Exception {
+        return new ResponseEntity<>(userService.login(dto), HttpStatus.CREATED);
+    }
+
     @JsonView(View.Workspace.class)
     @GetMapping("/users/{userId}/workspaces")
     public ResponseEntity<User> findUserWithWorkspacesByUserId(@PathVariable(value = "userId") Long userId) throws Exception {
         return new ResponseEntity<>(userService.findById(userId), HttpStatus.OK);
-    }
-
-    @JsonView(View.User.class)
-    @PostMapping("/users")
-    public ResponseEntity<User> insertUser(@Valid @RequestBody UserDto dto) {
-        return new ResponseEntity<>(userService.save(dto), HttpStatus.CREATED);
     }
 
     @JsonView(View.User.class)

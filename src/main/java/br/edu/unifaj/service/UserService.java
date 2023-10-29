@@ -1,5 +1,6 @@
 package br.edu.unifaj.service;
 
+import br.edu.unifaj.dto.UserLoginDto;
 import br.edu.unifaj.entity.User;
 import br.edu.unifaj.dto.UserDto;
 import br.edu.unifaj.entity.UserWorkspace;
@@ -29,6 +30,10 @@ public class UserService {
 
     public User findById(Long userId) throws Exception {
         return userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
+    }
+
+    public User login(UserLoginDto dto) throws Exception {
+        return userRepository.findByEmailAndPass(dto.getEmail(), dto.getPass()).orElseThrow(() -> new Exception("Login failed"));
     }
 
     public User save(UserDto dto) {
