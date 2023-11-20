@@ -24,7 +24,9 @@ public class CardService {
         Card newCard = CardMapper.INSTANCE.cardDtoToCard(dto);
         Catalog catalog = catalogRepository.findById(dto.getIdCatalog()).orElseThrow(() -> new Exception("Catalog not found"));
 
-        if (newCard.getCatalogPosition() > catalog.getCards().size() + 1) {
+        if (newCard.getCatalogPosition() == -1) {
+            newCard.setCatalogPosition(catalog.getCards().size() + 1);
+        } else if (newCard.getCatalogPosition() > catalog.getCards().size() + 1) {
             throw new Exception("Card must be in catalogPosition between " + 1 + " and " + (catalog.getCards().size() + 1));
         }
 

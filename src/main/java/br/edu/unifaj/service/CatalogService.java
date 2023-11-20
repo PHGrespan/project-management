@@ -28,7 +28,9 @@ public class CatalogService {
         Catalog newCatalog = CatalogMapper.INSTANCE.catalogDtoToCatalog(dto);
         Project project = projectRepository.findById(newCatalog.getProject().getId()).orElseThrow(() -> new Exception("Project not found"));
 
-        if (newCatalog.getProjectPosition() > project.getCatalogs().size() + 1) {
+        if (newCatalog.getProjectPosition() == -1) {
+            newCatalog.setProjectPosition(project.getCatalogs().size() + 1);
+        } else if (newCatalog.getProjectPosition() > project.getCatalogs().size() + 1) {
             throw new Exception("Catalog must be in projectPosition between " + 1 + " and " + (project.getCatalogs().size() + 1));
         }
 

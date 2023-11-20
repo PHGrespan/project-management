@@ -27,6 +27,5 @@ public class ProjectDto implements Serializable {
     Long idWorkspace;
 
     @NotNull
-    @Min(1)
     Integer workspacePosition;
 }

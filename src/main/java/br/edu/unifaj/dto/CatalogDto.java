@@ -25,6 +25,5 @@ public class CatalogDto implements Serializable {
     Long idProject;
 
     @NotNull
-    @Min(1)
     Integer projectPosition;
 }

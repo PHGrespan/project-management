@@ -28,7 +28,9 @@ public class ProjectService {
         Project newProject = ProjectMapper.INSTANCE.projectDtoToProject(dto);
         Workspace workspace = workspaceRepository.findById(newProject.getWorkspace().getId()).orElseThrow(() -> new Exception("Workspace not found"));
 
-        if (newProject.getWorkspacePosition() > workspace.getProjects().size() + 1) {
+        if (newProject.getWorkspacePosition() == -1) {
+            newProject.setWorkspacePosition(workspace.getProjects().size() + 1);
+        } else if (newProject.getWorkspacePosition() > workspace.getProjects().size() + 1) {
             throw new Exception("Catalog must be in projectPosition between " + 1 + " and " + (workspace.getProjects().size() + 1));
         }
 
