@@ -13,10 +13,6 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 @Controller
 public class ProjectWebSocketController {
 
@@ -26,27 +22,27 @@ public class ProjectWebSocketController {
     @Autowired
     ProjectService projectService;
 
-    @JsonView(View.Catalog.class)
+    @JsonView(View.Card.class)
     @MessageMapping("/workspace/{workspaceId}/project.add")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
-    public List<Workspace> insertProject(@DestinationVariable Long workspaceId, @Payload ProjectDto project) throws Exception {
+    public Workspace insertProject(@DestinationVariable Long workspaceId, @Payload ProjectDto project) throws Exception {
         projectService.insert(project);
-        return Collections.singletonList(workspaceService.findById(workspaceId));
+        return workspaceService.findById(workspaceId);
     }
 
-    @JsonView(View.Catalog.class)
-    @MessageMapping("/workspace/{oldWorkspaceId}/{newWorkspaceId}/project.update/{projectId}")
-    @SendTo({"/topic/workspace/{oldWorkspaceId}/project.list", "/topic/workspace/{newWorkspaceId}/project.list"})
-    public List<Workspace> updateProject(@DestinationVariable Long oldWorkspaceId, @DestinationVariable Long newWorkspaceId, @DestinationVariable Long projectId, @Payload ProjectDto project) throws Exception {
+    @JsonView(View.Card.class)
+    @MessageMapping("/workspace/{workspaceId}/project.update/{projectId}")
+    @SendTo("/topic/workspace/{workspaceId}/project.list")
+    public Workspace updateProject(@DestinationVariable Long workspaceId, @DestinationVariable Long projectId, @Payload ProjectDto project) throws Exception {
         projectService.update(projectId, project);
-        return Arrays.asList(workspaceService.findById(oldWorkspaceId), workspaceService.findById(newWorkspaceId));
+        return workspaceService.findById(workspaceId);
     }
 
-    @JsonView(View.Catalog.class)
+    @JsonView(View.Card.class)
     @MessageMapping("/workspace/{workspaceId}/project.delete/{projectId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
-    public List<Workspace> deleteProject(@DestinationVariable Long workspaceId, @DestinationVariable Long projectId) throws Exception {
+    public Workspace deleteProject(@DestinationVariable Long workspaceId, @DestinationVariable Long projectId) throws Exception {
         projectService.deleteProjectById(projectId);
-        return Collections.singletonList(workspaceService.findById(workspaceId));
+        return workspaceService.findById(workspaceId);
     }
 }
