@@ -1,6 +1,7 @@
 package br.edu.unifaj.controller.websocket;
 
 import br.edu.unifaj.dto.CatalogDto;
+import br.edu.unifaj.dto.CatalogWithIdDto;
 import br.edu.unifaj.entity.Workspace;
 import br.edu.unifaj.service.CatalogService;
 import br.edu.unifaj.service.WorkspaceService;
@@ -12,6 +13,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Controller
 public class CatalogWebSocketController {
@@ -31,17 +34,20 @@ public class CatalogWebSocketController {
     }
 
     @JsonView(View.Card.class)
-    @MessageMapping("/workspace/{workspaceId}/project/catalog.update/{catalogId}")
+    @MessageMapping("/workspace/{workspaceId}/project/catalog.update")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
-    public Workspace updateProject(@DestinationVariable Long workspaceId, @DestinationVariable Long catalogId, @Payload CatalogDto catalog) throws Exception {
-        catalogService.update(catalogId, catalog);
+    public Workspace updateCatalogs(@DestinationVariable Long workspaceId, @Payload List<CatalogWithIdDto> catalogs) throws Exception {
+        for (CatalogWithIdDto catalog : catalogs) {
+            CatalogDto catalogDto = new CatalogDto(catalog.getName(), catalog.getIdProject(), catalog.getProjectPosition());
+            catalogService.update(catalog.getId(), catalogDto);
+        }
         return workspaceService.findById(workspaceId);
     }
 
     @JsonView(View.Card.class)
     @MessageMapping("/workspace/{workspaceId}/project/catalog.delete/{catalogId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
-    public Workspace deleteProject(@DestinationVariable Long workspaceId, @DestinationVariable Long catalogId) throws Exception {
+    public Workspace deleteCatalog(@DestinationVariable Long workspaceId, @DestinationVariable Long catalogId) throws Exception {
         catalogService.deleteCatalogById(catalogId);
         return workspaceService.findById(workspaceId);
     }

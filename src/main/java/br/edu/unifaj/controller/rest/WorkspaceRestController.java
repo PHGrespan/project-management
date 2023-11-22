@@ -15,11 +15,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63343")
+@CrossOrigin(origins = {"http://localhost:63342", "http://localhost:63343"})
 public class WorkspaceRestController {
 
     @Autowired
     WorkspaceService workspaceService;
+
+    @JsonView(View.Card.class)
+    @GetMapping("/workspaces/{workspaceId}")
+    public ResponseEntity<Workspace> findWorkspaceWithProjectsCatalogsAndCardsByWorkspaceId(@PathVariable(value = "workspaceId") Long workspaceId) throws Exception {
+        return new ResponseEntity<>(workspaceService.findById(workspaceId), HttpStatus.OK);
+    }
 
     @JsonView(View.Project.class)
     @GetMapping("/workspaces/{workspaceId}/projects")
