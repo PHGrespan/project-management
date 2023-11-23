@@ -35,7 +35,7 @@ public class WorkspaceService {
     public Workspace insert(Long userId, WorkspaceDto dto) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
 
-        Workspace newWorkspace= WorkspaceMapper.INSTANCE.WorkspaceDtoToWorkspace(dto);
+        Workspace newWorkspace = WorkspaceMapper.INSTANCE.WorkspaceDtoToWorkspace(dto);
 
         newWorkspace.setCreationDate(LocalDateTime.now());
         newWorkspace.setUpdateDate(LocalDateTime.now());
@@ -72,15 +72,32 @@ public class WorkspaceService {
         workspaceRepository.deleteById(id);
     }
 
+    public void deleteWorkspaceByUserIdAndId(Long userId, Long workspaceId) throws Exception {
+        UserWorkspaceId userWorkspaceId = new UserWorkspaceId();
+        userWorkspaceId.setUserId(userId);
+        userWorkspaceId.setWorkspaceId(workspaceId);
+        UserWorkspace userWorkspace = userWorkspaceRepository.findById(userWorkspaceId).orElseThrow(() -> new Exception("User not registered on workspace"));
+
+        if (userWorkspace.getOwner()) {
+            workspaceRepository.deleteById(workspaceId);
+        } else {
+            userWorkspaceRepository.deleteById(userWorkspaceId);
+        }
+    }
+
     public User addUserToWorkspace(Long userId, Long workspaceId) throws Exception {
+        UserWorkspaceId userWorkspaceId = new UserWorkspaceId();
+        userWorkspaceId.setUserId(userId);
+        userWorkspaceId.setWorkspaceId(workspaceId);
+
+        if (userWorkspaceRepository.findById(userWorkspaceId).isPresent()) {
+            throw new Exception("User already registered on Workspace");
+        }
+
         UserWorkspace userWorkspace = new UserWorkspace();
         userWorkspace.setOwner(false);
         userWorkspace.setUser(userRepository.findById(userId).orElseThrow(() -> new Exception("User not found")));
         userWorkspace.setWorkspace(workspaceRepository.findById(workspaceId).orElseThrow(() -> new Exception("Workspace not found")));
-
-        UserWorkspaceId userWorkspaceId = new UserWorkspaceId();
-        userWorkspaceId.setUserId(userId);
-        userWorkspaceId.setWorkspaceId(workspaceId);
 
         userWorkspace.setId(userWorkspaceId);
 

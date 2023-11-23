@@ -42,7 +42,15 @@ public class WorkspaceWebSocketController {
     @MessageMapping("/user/{userId}/workspace.delete/{workspaceId}")
     @SendTo("/topic/user/{userId}/workspace.list")
     public User deleteWorkspace(@DestinationVariable Long userId, @DestinationVariable Long workspaceId) throws Exception {
-        workspaceService.deleteWorkspaceById(workspaceId);
+        workspaceService.deleteWorkspaceByUserIdAndId(userId, workspaceId);
         return userService.findById(userId);
+    }
+
+    @JsonView(View.Workspace.class)
+    @MessageMapping("/user.add/{newUserId}/workspace/{workspaceId}")
+    @SendTo({"/topic/user/{newUserId}/workspace.list"})
+    public User addUserToWorkspace(@DestinationVariable Long workspaceId, @DestinationVariable Long newUserId) throws Exception {
+        workspaceService.addUserToWorkspace(newUserId, workspaceId);
+        return userService.findById(newUserId);
     }
 }

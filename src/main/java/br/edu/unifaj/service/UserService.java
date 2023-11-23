@@ -32,6 +32,10 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
     }
 
+    public User findByEmail(String email) throws Exception {
+        return userRepository.findByEmail(email).orElseThrow(() -> new Exception("User not found"));
+    }
+
     public User login(UserLoginDto dto) throws Exception {
         return userRepository.findByEmailAndPass(dto.getEmail(), dto.getPass()).orElseThrow(() -> new Exception("Login failed"));
     }

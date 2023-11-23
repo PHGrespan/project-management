@@ -39,6 +39,12 @@ public class UserRestController {
     }
 
     @JsonView(View.User.class)
+    @GetMapping("/users/{email}")
+    public ResponseEntity<User> findUserByEmail(@PathVariable(value = "email") String email) throws Exception {
+        return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
+    }
+
+    @JsonView(View.User.class)
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id, @Valid @RequestBody UserDto dto) throws Exception {
         return new ResponseEntity<>(userService.update(id, dto), HttpStatus.OK);
