@@ -37,6 +37,7 @@ CREATE TABLE project
 
     PRIMARY KEY (project_id),
     FOREIGN KEY (workspace_id) REFERENCES workspace (workspace_id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE catalog
@@ -50,6 +51,7 @@ CREATE TABLE catalog
 
     PRIMARY KEY (catalog_id),
     FOREIGN KEY (project_id) REFERENCES project (project_id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE card
@@ -64,6 +66,7 @@ CREATE TABLE card
 
     PRIMARY KEY (card_id),
     FOREIGN KEY (catalog_id) REFERENCES catalog (catalog_id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE user_workspace
@@ -74,5 +77,5 @@ CREATE TABLE user_workspace
 
     PRIMARY KEY (user_id, workspace_id),
     FOREIGN KEY (user_id) REFERENCES user (user_id),
-    FOREIGN KEY (workspace_id) REFERENCES workspace (workspace_id)
+    FOREIGN KEY (workspace_id) REFERENCES workspace (workspace_id) ON DELETE CASCADE
 );

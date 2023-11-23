@@ -36,11 +36,9 @@ public class CatalogWebSocketController {
     @JsonView(View.Card.class)
     @MessageMapping("/workspace/{workspaceId}/project/catalog.update")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
-    public Workspace updateCatalogs(@DestinationVariable Long workspaceId, @Payload List<CatalogWithIdDto> catalogs) throws Exception {
-        for (CatalogWithIdDto catalog : catalogs) {
-            CatalogDto catalogDto = new CatalogDto(catalog.getName(), catalog.getIdProject(), catalog.getProjectPosition());
-            catalogService.update(catalog.getId(), catalogDto);
-        }
+    public Workspace updateCatalog(@DestinationVariable Long workspaceId, @Payload CatalogWithIdDto catalog) throws Exception {
+        CatalogDto catalogDto = new CatalogDto(catalog.getName(), catalog.getIdProject(), catalog.getProjectPosition());
+        catalogService.update(catalog.getId(), catalogDto);
         return workspaceService.findById(workspaceId);
     }
 

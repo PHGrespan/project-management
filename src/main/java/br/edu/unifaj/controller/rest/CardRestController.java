@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63343")
+@CrossOrigin(origins = {"http://localhost:63342", "http://localhost:63343"})
 public class CardRestController {
 
     @Autowired

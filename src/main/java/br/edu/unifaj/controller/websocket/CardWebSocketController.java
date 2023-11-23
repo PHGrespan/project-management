@@ -36,11 +36,9 @@ public class CardWebSocketController {
     @JsonView(View.Card.class)
     @MessageMapping("/workspace/{workspaceId}/project/catalog/card.update")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
-    public Workspace updateCards(@DestinationVariable Long workspaceId, @Payload List<CardWithIdDto> cards) throws Exception {
-        for (CardWithIdDto card : cards) {
-            CardDto cardDto = new CardDto(card.getName(), card.getDescription(), card.getIdCatalog(), card.getCatalogPosition());
-            cardService.update(card.getId(), cardDto);
-        }
+    public Workspace updateCard(@DestinationVariable Long workspaceId, @Payload CardWithIdDto card) throws Exception {
+        CardDto cardDto = new CardDto(card.getName(), card.getDescription(), card.getIdCatalog(), card.getCatalogPosition());
+        cardService.update(card.getId(), cardDto);
         return workspaceService.findById(workspaceId);
     }
 
