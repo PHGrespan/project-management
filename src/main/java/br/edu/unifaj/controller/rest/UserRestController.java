@@ -28,8 +28,13 @@ public class UserRestController {
 
     @JsonView(View.User.class)
     @PostMapping("/users/login")
-    public ResponseEntity<User> login(@Valid @RequestBody UserLoginDto dto) throws Exception {
-        return new ResponseEntity<>(userService.login(dto), HttpStatus.CREATED);
+    public ResponseEntity<User> login(@Valid @RequestBody UserLoginDto dto) {
+        try {
+            return new ResponseEntity<>(userService.login(dto), HttpStatus.CREATED);
+        } catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
     }
 
     @JsonView(View.Workspace.class)

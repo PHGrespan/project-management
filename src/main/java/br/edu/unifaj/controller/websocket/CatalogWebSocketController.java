@@ -1,7 +1,6 @@
 package br.edu.unifaj.controller.websocket;
 
 import br.edu.unifaj.dto.CatalogDto;
-import br.edu.unifaj.dto.CatalogWithIdDto;
 import br.edu.unifaj.entity.Workspace;
 import br.edu.unifaj.service.CatalogService;
 import br.edu.unifaj.service.WorkspaceService;
@@ -13,8 +12,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
 
 @Controller
 public class CatalogWebSocketController {
@@ -34,11 +31,10 @@ public class CatalogWebSocketController {
     }
 
     @JsonView(View.Card.class)
-    @MessageMapping("/workspace/{workspaceId}/project/catalog.update")
+    @MessageMapping("/workspace/{workspaceId}/project/catalog.update/{catalogId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
-    public Workspace updateCatalog(@DestinationVariable Long workspaceId, @Payload CatalogWithIdDto catalog) throws Exception {
-        CatalogDto catalogDto = new CatalogDto(catalog.getName(), catalog.getIdProject(), catalog.getProjectPosition());
-        catalogService.update(catalog.getId(), catalogDto);
+    public Workspace updateCatalog(@DestinationVariable Long workspaceId,@DestinationVariable Long catalogId, @Payload CatalogDto catalog) throws Exception {
+        catalogService.update(catalogId, catalog);
         return workspaceService.findById(workspaceId);
     }
 
