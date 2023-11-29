@@ -26,15 +26,23 @@ public class CatalogWebSocketController {
     @MessageMapping("/workspace/{workspaceId}/project/catalog.add")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
     public Workspace insertCatalog(@DestinationVariable Long workspaceId, @Payload CatalogDto catalog) throws Exception {
-        catalogService.insert(catalog);
+        try {
+            catalogService.insert(catalog);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 
     @JsonView(View.Card.class)
     @MessageMapping("/workspace/{workspaceId}/project/catalog.update/{catalogId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
-    public Workspace updateCatalog(@DestinationVariable Long workspaceId,@DestinationVariable Long catalogId, @Payload CatalogDto catalog) throws Exception {
-        catalogService.update(catalogId, catalog);
+    public Workspace updateCatalog(@DestinationVariable Long workspaceId, @DestinationVariable Long catalogId, @Payload CatalogDto catalog) throws Exception {
+        try {
+            catalogService.update(catalogId, catalog);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 
@@ -42,7 +50,11 @@ public class CatalogWebSocketController {
     @MessageMapping("/workspace/{workspaceId}/project/catalog.delete/{catalogId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
     public Workspace deleteCatalog(@DestinationVariable Long workspaceId, @DestinationVariable Long catalogId) throws Exception {
-        catalogService.deleteCatalogById(catalogId);
+        try {
+            catalogService.deleteCatalogById(catalogId);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 }

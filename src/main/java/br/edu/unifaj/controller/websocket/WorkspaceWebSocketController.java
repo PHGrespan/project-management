@@ -26,7 +26,11 @@ public class WorkspaceWebSocketController {
     @MessageMapping("/user/{userId}/workspace.add")
     @SendTo("/topic/user/{userId}/workspace.list")
     public User insertWorkspace(@DestinationVariable Long userId, @Payload WorkspaceDto workspace) throws Exception {
-        workspaceService.insert(userId, workspace);
+        try {
+            workspaceService.insert(userId, workspace);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return userService.findById(userId);
     }
 
@@ -34,7 +38,11 @@ public class WorkspaceWebSocketController {
     @MessageMapping("/user/{userId}/workspace.update/{workspaceId}")
     @SendTo("/topic/user/{userId}/workspace.list")
     public User updateWorkspace(@DestinationVariable Long userId, @DestinationVariable Long workspaceId, @Payload WorkspaceDto workspace) throws Exception {
-        workspaceService.update(workspaceId, workspace);
+        try {
+            workspaceService.update(workspaceId, workspace);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return userService.findById(userId);
     }
 
@@ -42,7 +50,11 @@ public class WorkspaceWebSocketController {
     @MessageMapping("/user/{userId}/workspace.delete/{workspaceId}")
     @SendTo("/topic/user/{userId}/workspace.list")
     public User deleteWorkspace(@DestinationVariable Long userId, @DestinationVariable Long workspaceId) throws Exception {
-        workspaceService.deleteWorkspaceByUserIdAndId(userId, workspaceId);
+        try {
+            workspaceService.deleteWorkspaceByUserIdAndId(userId, workspaceId);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return userService.findById(userId);
     }
 
@@ -50,7 +62,11 @@ public class WorkspaceWebSocketController {
     @MessageMapping("/user.add/{newUserId}/workspace/{workspaceId}")
     @SendTo({"/topic/user/{newUserId}/workspace.list"})
     public User addUserToWorkspace(@DestinationVariable Long workspaceId, @DestinationVariable Long newUserId) throws Exception {
-        workspaceService.addUserToWorkspace(newUserId, workspaceId);
+        try {
+            workspaceService.addUserToWorkspace(newUserId, workspaceId);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return userService.findById(newUserId);
     }
 }
