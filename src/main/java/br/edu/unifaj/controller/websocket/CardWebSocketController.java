@@ -26,7 +26,11 @@ public class CardWebSocketController {
     @MessageMapping("/workspace/{workspaceId}/project/catalog/card.add")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
     public Workspace insertCard(@DestinationVariable Long workspaceId, @Payload CardDto card) throws Exception {
-        cardService.insert(card);
+        try {
+            cardService.insert(card);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 
@@ -34,7 +38,11 @@ public class CardWebSocketController {
     @MessageMapping("/workspace/{workspaceId}/project/catalog/card.update/{cardId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
     public Workspace updateCard(@DestinationVariable Long workspaceId, @DestinationVariable Long cardId, @Payload CardDto card) throws Exception {
-        cardService.update(cardId, card);
+        try {
+            cardService.update(cardId, card);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 
@@ -42,7 +50,11 @@ public class CardWebSocketController {
     @MessageMapping("/workspace/{workspaceId}/project/catalog/card.delete/{cardId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
     public Workspace deleteCard(@DestinationVariable Long workspaceId, @DestinationVariable Long cardId) throws Exception {
-        cardService.deleteCardById(cardId);
+        try {
+            cardService.deleteCardById(cardId);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 }

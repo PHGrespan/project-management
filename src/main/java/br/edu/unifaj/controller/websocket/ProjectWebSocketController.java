@@ -26,7 +26,11 @@ public class ProjectWebSocketController {
     @MessageMapping("/workspace/{workspaceId}/project.add")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
     public Workspace insertProject(@DestinationVariable Long workspaceId, @Payload ProjectDto project) throws Exception {
-        projectService.insert(project);
+        try {
+            projectService.insert(project);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 
@@ -34,7 +38,11 @@ public class ProjectWebSocketController {
     @MessageMapping("/workspace/{workspaceId}/project.update/{projectId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
     public Workspace updateProject(@DestinationVariable Long workspaceId, @DestinationVariable Long projectId, @Payload ProjectDto project) throws Exception {
-        projectService.update(projectId, project);
+        try {
+            projectService.update(projectId, project);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 
@@ -42,7 +50,11 @@ public class ProjectWebSocketController {
     @MessageMapping("/workspace/{workspaceId}/project.delete/{projectId}")
     @SendTo("/topic/workspace/{workspaceId}/project.list")
     public Workspace deleteProject(@DestinationVariable Long workspaceId, @DestinationVariable Long projectId) throws Exception {
-        projectService.deleteProjectById(projectId);
+        try {
+            projectService.deleteProjectById(projectId);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return workspaceService.findById(workspaceId);
     }
 }
